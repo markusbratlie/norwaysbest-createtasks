@@ -1,10 +1,9 @@
-import json
-import lambda_function
+import main
 
 
 def live():
-    return lambda_function.lambda_handler(event={}, context={})
+    main.main(dry_run=False)
 
 
 if __name__ == '__main__':
-    print(json.dumps(live()))
+    live()

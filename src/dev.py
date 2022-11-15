@@ -1,13 +1,9 @@
-import json
-import lambda_function
+import main
 
 
 def dev():
-	test_event = {
-		'dry_run': True
-	}
-	return lambda_function.lambda_handler(event=test_event, context={})
+    main.main(dry_run=True)
 
 
 if __name__ == '__main__':
-	print(json.dumps(dev()))
+    dev()

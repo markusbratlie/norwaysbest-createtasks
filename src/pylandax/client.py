@@ -54,12 +54,12 @@ class Client:
 
 	# Returns a record with the given data_id (Id in in landax)
 	def get_single_data(self, data_model: str, data_id: int):
-		url = f'{self.api_url}{data_model}({str(data_id)})?$format=json'
+		url = f'{self.api_url}{data_model}({str(data_id)})?$format=json&$expand=RelatedIncidents%2CSurveyResults'
 		response = requests.get(url, headers=self.headers)
 		if response.status_code == 404:
 			return None
 
-		data = response.json()['value']
+		data = response.json()
 		return data
 
 	# Returns all records of the given data model
@@ -99,7 +99,7 @@ class Client:
 	#A get data where you can change the numbers of how many
 	def get_data(self, data_model: str) -> [{}]:
 		if self.format == 'json':
-			initial_url = f'{self.api_url}{data_model}?$format=json&$filter=TypeId eq 27'
+			initial_url = f'{self.api_url}{data_model}?$format=json&$expand=RelatedIncidents%2CSurveyResults&%24filter=TypeId eq 27'
 			data = self.request_data(initial_url)
 			count = len(data)
 			if count != 1000:
